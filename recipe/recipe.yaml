@@ -10,19 +10,29 @@ source:
   sha256: 9899b001e26a6d9c0930cd4138a7c7c9d23629dc949b39ae42c25e2d05c2145d
 
 build:
-  number: 0
+  number: 1
   skip: is_abi3 and not is_python_min
   python:
-    version_independent: true
+    version_independent: ${{ is_abi3 }}
+  script:
+    env:
+      CARGO_PROFILE_RELEASE_STRIP: symbols
+      CARGO_PROFILE_RELEASE_LTO: fat
+    content:
+      # Remove this wrapper once https://github.com/conda-forge/rust-activation-feedstock/pull/79 is merged
+      - if: unix
+        then:
+          - mkdir -p "${BUILD_PREFIX}/bin"
+          - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/cargo-auditable-wrapper"
+          - export CARGO="cargo-auditable-wrapper"
+        else:
+          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\cargo-auditable-wrapper.bat" || exit 1
+          - set CARGO=cargo-auditable-wrapper.bat
+      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+      - python -m pip install . --no-deps --ignore-installed -vv --no-build-isolation --disable-pip-version-check
 
 requirements:
   build:
-    - if: build_platform != target_platform
-      then:
-        - python
-        - cross-python_${{ target_platform }}
-        - crossenv
-        - maturin >=1.7,<2
     - ${{ compiler('rust') }}
     - ${{ stdlib('c') }}
     - cargo-bundle-licenses
@@ -36,16 +46,15 @@ requirements:
   run:
     - python
     - typing_extensions
-  ignore_run_exports:
-    from_package:
-      - cross-python_${{ target_platform }}
   run_constraints:
     - polars >=1.40
     - sqlalchemy >=2
 
 tests:
   - python:
-      python_version: "${{ python_min ~ '.*' }}"
+      python_version:
+        - ${{ python_min }}.*
+        - '*'
       imports:
         - ducklake
       pip_check: true
@@ -54,9 +63,7 @@ tests:
       script:
         - if: win
           then: abi3audit %PREFIX%/Lib/site-packages/ducklake/_native.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
-          else:
-            - export SP_DIR=$(python -c "import site; print(site.getsitepackages()[0])")
-            - abi3audit $SP_DIR/ducklake/_native.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
+          else: abi3audit $SP_DIR/ducklake/_native.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
       requirements:
         run:
           - abi3audit
