@@ -1,5 +1,5 @@
 context:
-  version: "0.0.9"
+  version: "0.0.10"
 
 package:
   name: ducklake-sdk
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/d/ducklake-sdk/ducklake_sdk-${{ version }}.tar.gz
-  sha256: 9899b001e26a6d9c0930cd4138a7c7c9d23629dc949b39ae42c25e2d05c2145d
+  sha256: f4c2adac8f83d95130329c07b91a90f3d99723e9730106fd2b7fe99e76cba7c7
 
 build:
-  number: 1
+  number: 0
   skip: is_abi3 and not is_python_min
   python:
     version_independent: ${{ is_abi3 }}
