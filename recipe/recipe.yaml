@@ -1,5 +1,5 @@
 context:
-  version: "0.0.11"
+  version: "0.0.12"
 
 package:
   name: ducklake-sdk
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/d/ducklake-sdk/ducklake_sdk-${{ version }}.tar.gz
-  sha256: e3f9e5e3c0aa369772a81d018efba0a654f60eeeee793de36e0daaf571947756
+  sha256: 3b93e582b60622d2306cdc6b0b636d6406745699f960554c4cf8e89ec0ad1eb8
 
 build:
   number: 0
@@ -48,7 +48,7 @@ requirements:
     - python
     - typing_extensions
   run_constraints:
-    - polars >=1.40
+    - polars >=1.43.2
     - sqlalchemy >=2
 
 tests:
