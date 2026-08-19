@@ -1,5 +1,5 @@
 context:
-  version: "0.0.12"
+  version: "0.0.14"
 
 package:
   name: ducklake-sdk
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/d/ducklake-sdk/ducklake_sdk-${{ version }}.tar.gz
-  sha256: 3b93e582b60622d2306cdc6b0b636d6406745699f960554c4cf8e89ec0ad1eb8
+  sha256: fea39112048fa494f5790bab435b4b54d0744c27ebe71d13f8011495e7aee6bd
 
 build:
   number: 0
@@ -63,7 +63,7 @@ tests:
     then:
       script:
         - if: win
-          then: abi3audit %PREFIX%/Lib/site-packages/ducklake/_native.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+          then: abi3audit %SP_DIR%/ducklake/_native.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
           else: abi3audit $SP_DIR/ducklake/_native.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
       requirements:
         run:
