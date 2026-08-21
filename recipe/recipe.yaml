@@ -26,8 +26,7 @@ build:
           - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/cargo-auditable-wrapper"
           - export CARGO="cargo-auditable-wrapper"
         else:
-          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\cargo-auditable-wrapper.bat" ||
-            exit 1
+          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\cargo-auditable-wrapper.bat" || exit 1
           - set CARGO=cargo-auditable-wrapper.bat
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
       - python -m pip install . --no-deps --ignore-installed -vv --no-build-isolation --disable-pip-version-check
