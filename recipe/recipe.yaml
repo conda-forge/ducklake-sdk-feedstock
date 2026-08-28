@@ -1,5 +1,5 @@
 context:
-  version: "0.0.15"
+  version: "0.0.16"
 
 package:
   name: ducklake-sdk
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/d/ducklake-sdk/ducklake_sdk-${{ version }}.tar.gz
-  sha256: 47dbd97d2396b7c3f1f419b337075848fb49637689e0fb0b35ef4d6e20de3f5f
+  sha256: 1c0f2506fd9801d82a90bb2f01b1fb87a8504b3bbbf276419c606f7ec6709087
 
 build:
   number: 0
