@@ -1,5 +1,5 @@
 context:
-  version: "0.0.19"
+  version: "0.0.20"
 
 package:
   name: ducklake-sdk
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/d/ducklake-sdk/ducklake_sdk-${{ version }}.tar.gz
-  sha256: 567b20eef9bdbc99e695dfda07011a384e3d0e216428b527fcc673491adfd27c
+  sha256: 53c96824953323cac2c236ed8ef602be116162e3e7a9244a612461a5227c6de1
 
 build:
   number: 0
@@ -26,7 +26,8 @@ build:
           - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/cargo-auditable-wrapper"
           - export CARGO="cargo-auditable-wrapper"
         else:
-          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\cargo-auditable-wrapper.bat" || exit 1
+          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\cargo-auditable-wrapper.bat" ||
+            exit 1
           - set CARGO=cargo-auditable-wrapper.bat
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
       - python -m pip install . --no-deps --ignore-installed -vv --no-build-isolation --disable-pip-version-check
