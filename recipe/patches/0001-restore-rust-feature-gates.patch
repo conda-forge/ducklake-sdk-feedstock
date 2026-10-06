@@ -1,0 +1,12 @@
+Restore the feature gates needed by the older Rust toolchain used by conda-forge.
+Reverts only the feature-gate change from https://github.com/borchero/ducklake-sdk/pull/132.
+
+diff --git a/crates/ducklake/src/lib.rs b/crates/ducklake/src/lib.rs
+--- a/crates/ducklake/src/lib.rs
++++ b/crates/ducklake/src/lib.rs
+@@ -1,4 +1,4 @@
+-#![feature(trait_alias)]
++#![feature(trait_alias, unwrap_infallible, never_type)]
+ #![cfg_attr(coverage_nightly, feature(coverage_attribute))]
+ 
+ #[macro_use]

@@ -1,5 +1,5 @@
 context:
-  version: "0.0.20"
+  version: "0.0.21"
 
 package:
   name: ducklake-sdk
@@ -7,7 +7,9 @@ package:
 
 source:
   url: https://pypi.org/packages/source/d/ducklake-sdk/ducklake_sdk-${{ version }}.tar.gz
-  sha256: 53c96824953323cac2c236ed8ef602be116162e3e7a9244a612461a5227c6de1
+  sha256: c7bd7ad770fd53b4c8d4248cc8ecac788784febcf5a74579ae79685d75b9a5b6
+  patches:
+    - patches/0001-restore-rust-feature-gates.patch
 
 build:
   number: 0
