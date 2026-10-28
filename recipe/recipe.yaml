@@ -1,5 +1,5 @@
 context:
-  version: "0.0.21"
+  version: 0.0.22
 
 package:
   name: ducklake-sdk
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/d/ducklake-sdk/ducklake_sdk-${{ version }}.tar.gz
-  sha256: c7bd7ad770fd53b4c8d4248cc8ecac788784febcf5a74579ae79685d75b9a5b6
+  sha256: 5904929bb51cc646f0c194e0363a3354e05319d69e7512905f9a4cfa2f2e7925
   patches:
     - patches/0001-restore-rust-feature-gates.patch
 
@@ -28,8 +28,7 @@ build:
           - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/cargo-auditable-wrapper"
           - export CARGO="cargo-auditable-wrapper"
         else:
-          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\cargo-auditable-wrapper.bat" ||
-            exit 1
+          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\cargo-auditable-wrapper.bat" || exit 1
           - set CARGO=cargo-auditable-wrapper.bat
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
       - python -m pip install . --no-deps --ignore-installed -vv --no-build-isolation --disable-pip-version-check
@@ -48,7 +47,6 @@ requirements:
     - maturin >=1.7,<2
   run:
     - python
-    - typing_extensions
   run_constraints:
     - polars >=1.43.2
     - sqlalchemy >=2
@@ -57,7 +55,7 @@ tests:
   - python:
       python_version:
         - ${{ python_min }}.*
-        - "*"
+        - '*'
       imports:
         - ducklake
       pip_check: true
