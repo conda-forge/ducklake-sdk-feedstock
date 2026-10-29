@@ -8,8 +8,6 @@ package:
 source:
   url: https://pypi.org/packages/source/d/ducklake-sdk/ducklake_sdk-${{ version }}.tar.gz
   sha256: 5904929bb51cc646f0c194e0363a3354e05319d69e7512905f9a4cfa2f2e7925
-  patches:
-    - patches/0001-restore-rust-feature-gates.patch
 
 build:
   number: 0
@@ -48,7 +46,7 @@ requirements:
   run:
     - python
   run_constraints:
-    - polars >=1.43.2
+    - polars >=2
     - sqlalchemy >=2
 
 tests:
